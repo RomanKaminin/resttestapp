@@ -1,0 +1,78 @@
+plugins {
+    id 'org.springframework.boot' version '2.4.2'
+    id 'io.spring.dependency-management' version '1.0.11.RELEASE'
+    id 'java'
+    id 'ru.vyarus.quality' version '4.1.0'
+}
+
+
+group = 'ru.example'
+version = '0.0.1-SNAPSHOT'
+sourceCompatibility = '11'
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
+
+
+repositories {
+    mavenCentral()
+    maven {
+        url "https://plugins.gradle.org/m2/"
+    }
+}
+
+ext {
+    springBootGradleVersion = '2.4.2'
+    qualityVersion = '4.1.0'
+    lombokVersion = '4.0.1'
+    validApiVersion = '2.0.1.Final'
+    validHibernateVersion = '6.0.9.Final'
+}
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+    annotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    compile "org.springframework.boot:spring-boot-gradle-plugin:$springBootGradleVersion"
+    compile "ru.vyarus:gradle-quality-plugin:$qualityVersion"
+    compile "io.freefair.gradle:lombok-plugin:$lombokVersion"
+    compile "javax.validation:validation-api:$validApiVersion"
+    compile "org.hibernate.validator:hibernate-validator:$validHibernateVersion"
+    implementation 'junit:junit:4.12'
+
+}
+
+test {
+    useJUnitPlatform()
+}
+
+quality {
+    autoRegistration = true
+    htmlReports = false
+
+    checkstyleVersion = '8.16'
+    htmlReports = false
+
+    checkstyle = true
+    pmd = false
+    cpd = false
+    spotbugs = true
+    codenarc = false
+
+    /**
+     * Javac lint options to show compiler warnings, not visible by default.
+     * Applies to all CompileJava tasks.
+     * Options will be added as -Xlint:option
+     * Full list of options: http://docs.oracle.com/javase/8/docs/technotes/tools/windows/javac.html#BHCJCABJ
+     */
+    lintOptions = [] //['deprecation', 'unchecked']
+}
+
+def checkstyleConfigDir = project.rootDir.path + "/checkstyle"
+afterEvaluate {
+    checkstyle {
+        configFile = file("$checkstyleConfigDir/checkstyle.xml")
+    }
+}

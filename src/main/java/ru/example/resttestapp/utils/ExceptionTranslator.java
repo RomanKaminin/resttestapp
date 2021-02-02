@@ -21,12 +21,12 @@ public class ExceptionTranslator {
      * аннотированными ограничениями javax.validation.
      */
     @ExceptionHandler
-    protected ResponseEntity<?> handleConstraintViolationException(ConstraintViolationException exception)    {
+    protected ResponseEntity<?> handleConstraintViolationException(ConstraintViolationException exception) {
 
-        List<ApiError> apiErrors = new ArrayList<>();
+        final List<ApiError> apiErrors = new ArrayList<>();
 
-        for (ConstraintViolation<?> violation :  exception.getConstraintViolations()) {
-            String value = (violation.getInvalidValue() == null ? null : violation.getInvalidValue().toString());
+        for (ConstraintViolation<?> violation : exception.getConstraintViolations()) {
+            final String value = (violation.getInvalidValue() == null ? null : violation.getInvalidValue().toString());
             apiErrors.add(new  ApiError(violation.getPropertyPath().toString(), value, violation.getMessage()));
         }
 

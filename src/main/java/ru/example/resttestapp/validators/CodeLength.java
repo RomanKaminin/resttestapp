@@ -10,16 +10,15 @@ import java.lang.annotation.Target;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
-@Target({ FIELD })
+@Target(FIELD)
 @Retention(RUNTIME)
 @Constraint(validatedBy = CodeLengthValidator.class)
 @Documented
 public @interface CodeLength {
 
-    int value()  default 9;
+    int value() default 9;
 
-//    String message() default  "{CodeLength.invalid}";
-    String message() default  "{CodeLength.invalid}";
+    String message() default "{CodeLength.invalid}";
 
     Class<?>[] groups() default {};
 

@@ -25,8 +25,9 @@ public class OrderController {
 
     @PostMapping(value = "/order", consumes = {MediaType.ALL_VALUE})
     public ResponseEntity createOrder(@Valid @RequestBody Order order, BindingResult result) {
-        if (order == null)
+        if (order == null) {
             return ResponseEntity.badRequest().body(null);
+        }
         return ResponseEntity.ok(order);
     }
 

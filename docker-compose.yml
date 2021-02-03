@@ -1,0 +1,12 @@
+version: '3'
+services:
+
+  resttestapp:
+    build:
+      dockerfile: src/docker/Dockerfile
+      context: ./
+    ports:
+      - 8080:8080
+    volumes:
+    - /data/app
+

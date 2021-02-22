@@ -37,12 +37,38 @@ public class OrderControllerTest {
     }
 
     @Test
-    public void orderWithNotCorrectFields() throws Exception {
+    public void customerLengthCode() throws Exception {
         String expectedJson = "[{\"field\":\"customer\",\"value\":\"11\",\"message\":\"The length must be equal 9\"}]";
-        String requestWithErrors = "{\"seller\":\"111111111\",\"customer\":\"11\",\"products\":[{\"name\":\"milk\",\"code\":\"1111111111111\"}]}";
+        String requestJson = "{\"seller\":\"111111111\",\"customer\":\"11\",\"products\":[{\"name\":\"milk\",\"code\":\"1111111111111\"}]}";
         RequestBuilder requestBuilder = post("/api/order")
                 .accept(MediaType.APPLICATION_JSON)
-                .content(requestWithErrors)
+                .content(requestJson)
+                .contentType(MediaType.APPLICATION_JSON);
+        mockMvc.perform(requestBuilder)
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(expectedJson));
+    }
+
+    @Test
+    public void sellerLengthCode() throws Exception {
+        String expectedJson = "[{\"field\":\"seller\",\"value\":\"222222222222\",\"message\":\"The length must be equal 9\"}]";
+        String requestJson = "{\"seller\":\"222222222222\",\"customer\":\"111111111\",\"products\":[{\"name\":\"milk\",\"code\":\"1111111111111\"}]}";
+        RequestBuilder requestBuilder = post("/api/order")
+                .accept(MediaType.APPLICATION_JSON)
+                .content(requestJson)
+                .contentType(MediaType.APPLICATION_JSON);
+        mockMvc.perform(requestBuilder)
+                .andExpect(status().isBadRequest())
+                .andExpect(content().string(expectedJson));
+    }
+
+    @Test
+    public void productLengthCode() throws Exception {
+        String expectedJson = "[{\"field\":\"products[0].code\",\"value\":\"36563521111437590\",\"message\":\"The length must be equal 13\"}]";
+        String requestJson = "{\"seller\":\"111111111\",\"customer\":\"111111111\",\"products\":[{\"name\":\"milk\",\"code\":\"36563521111437590\"}]}";
+        RequestBuilder requestBuilder = post("/api/order")
+                .accept(MediaType.APPLICATION_JSON)
+                .content(requestJson)
                 .contentType(MediaType.APPLICATION_JSON);
         mockMvc.perform(requestBuilder)
                 .andExpect(status().isBadRequest())

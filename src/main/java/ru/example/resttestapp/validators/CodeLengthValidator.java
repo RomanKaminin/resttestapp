@@ -2,7 +2,6 @@ package ru.example.resttestapp.validators;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-import java.nio.charset.StandardCharsets;
 
 public class CodeLengthValidator implements ConstraintValidator<CodeLength, String> {
 
@@ -15,6 +14,7 @@ public class CodeLengthValidator implements ConstraintValidator<CodeLength, Stri
 
     @Override
     public boolean isValid(String field, ConstraintValidatorContext constraintValidatorContext) {
-        return field != null && field.getBytes(StandardCharsets.UTF_8).length == this.maxLength;
+
+        return field != null && field.length() == this.maxLength;
     }
 }

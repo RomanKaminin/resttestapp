@@ -16,12 +16,13 @@ import javax.validation.constraints.NotEmpty;
 @AllArgsConstructor
 @Validated
 public class Product {
-    private static final int PRODUCT_CODE_LENGTH = 13;
+    private static final int VALID_CODE_LENGTH = 13;
+    private static final String VALID_CODE_MESSAGE = "The length must be equal " + VALID_CODE_LENGTH;
 
     @NotEmpty(message = "Please provide a 'name' field for Product!")
     private String name;
 
     @NotEmpty(message = "Please provide a 'code' field for Product!")
-    @CodeLength(value = PRODUCT_CODE_LENGTH, message = "The length must be equal 13")
+    @CodeLength(value = VALID_CODE_LENGTH, message = VALID_CODE_MESSAGE)
     private String code;
 }

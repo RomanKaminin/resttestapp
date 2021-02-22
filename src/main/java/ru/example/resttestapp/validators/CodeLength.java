@@ -16,7 +16,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Documented
 public @interface CodeLength {
 
-    int value() default 9;
+    int value() default 0;
 
     String message() default "{CodeLength.invalid}";
 

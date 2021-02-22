@@ -18,13 +18,15 @@ import java.util.List;
 @AllArgsConstructor
 @Validated
 public class Order {
+    private static final int VALID_CODE_LENGTH = 9;
+    private static final String VALID_CODE_MESSAGE = "The length must be equal " + VALID_CODE_LENGTH;
 
     @NotEmpty(message = "Please provide a 'seller' field for Order!")
-    @CodeLength(message = "The length must be equal 9")
+    @CodeLength(value = VALID_CODE_LENGTH, message = VALID_CODE_MESSAGE)
     private String seller;
 
     @NotEmpty(message = "Please provide a 'customer' field for Order!")
-    @CodeLength(message = "The length must be equal 9")
+    @CodeLength(value = VALID_CODE_LENGTH, message = VALID_CODE_MESSAGE)
     private String customer;
 
     @NotEmpty(message = "Please provide a 'products' field for Order!")

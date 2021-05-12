@@ -38,9 +38,15 @@ ext {
     lombokVersion = '4.0.1'
     validApiVersion = '2.0.1.Final'
     validHibernateVersion = '6.0.9.Final'
+    springdocVersion = '1.5.2'
+    swaggerAnnotationsVersion = '2.1.6'
 }
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-web'
+//    swagger for check go: localhost:8080/swagger-ui.html
+    implementation "org.springdoc:springdoc-openapi-ui:$springdocVersion"
+    implementation "io.swagger.core.v3:swagger-annotations:$swaggerAnnotationsVersion"
+
     annotationProcessor 'org.projectlombok:lombok'
     testImplementation 'org.springframework.boot:spring-boot-starter-test'
     compile "org.springframework.boot:spring-boot-gradle-plugin:$springBootGradleVersion"
